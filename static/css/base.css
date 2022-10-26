@@ -94,6 +94,11 @@ body {
     }
 }
 
+a.category-badge > span.badge:hover {
+    background: #212529 !important;
+    color: #fff !important;
+}
+
 /* pad the top a bit when navbar is collapse on mobile */
 @media (max-width: 991px) {
     .header-container {
