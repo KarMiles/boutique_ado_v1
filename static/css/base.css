@@ -120,8 +120,8 @@ a.category-badge > span.badge:hover {
     right: 10px;
 }
 
-.btt-link
-.update-link
+.btt-link,
+.update-link,
 .remove-item {
     cursor: pointer;
 }
