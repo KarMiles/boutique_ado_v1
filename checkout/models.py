@@ -65,7 +65,7 @@ class Order(models.Model):
         decimal_places=2,
         null=False,
         default=0)
-    
+
     def _generate_order_number(self):
         """
         Generate a random, unique order number using UUID
@@ -95,7 +95,7 @@ class Order(models.Model):
         if not self.order_number:
             self.order_number = self._generate_order_number()
             super().save(*args, **kwargs)
-    
+
     def __str__(self):
         return self.order_number
 
