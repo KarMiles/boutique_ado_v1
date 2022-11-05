@@ -1,7 +1,7 @@
 from django import template
 
 
-# In bag.html add:
+# In bag.html and checkout.html add:
 # {% load bag_tools %}
 # {{ item.product.price | calc_subtotal:item.quantity }}
 
