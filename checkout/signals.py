@@ -5,7 +5,7 @@ from .models import OrderLineItem
 
 
 # Use receiver decorator telling it
-# we're receiving post_saved signals
+# we're receiving post_save signals
 # from the OrderLineItem model
 @receiver(post_save, sender=OrderLineItem)
 def update_on_save(sender, instance, created, **kwargs):
