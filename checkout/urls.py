@@ -19,5 +19,5 @@ urlpatterns = [
         'wh/',  # i call this path WH
         webhook,  # it will return a function called webhook
         name='webhook',  # with the name of webhook
-    )
+    ),
 ]
