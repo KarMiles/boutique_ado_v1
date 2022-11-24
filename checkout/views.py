@@ -5,9 +5,10 @@ from django.conf import settings
 
 from .forms import OrderForm
 from .models import Order, OrderLineItem
+
 from products.models import Product
-from profiles.forms import UserProfileForm
 from profiles.models import UserProfile
+from profiles.forms import UserProfileForm
 from bag.contexts import bag_contents
 
 import stripe
@@ -49,6 +50,7 @@ def checkout(request):
             'street_address2': request.POST['street_address2'],
             'county': request.POST['county'],
         }
+
         order_form = OrderForm(form_data)
         if order_form.is_valid():
             order = order_form.save(commit=False)
@@ -121,8 +123,6 @@ def checkout(request):
                 order_form = OrderForm()
         else:
             order_form = OrderForm()
-
-        order_form = OrderForm()
 
     if not stripe_public_key:
         messages.warning(request, 'Stripe public key is missing. \
