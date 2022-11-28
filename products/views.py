@@ -71,14 +71,7 @@ def product_detail(request, product_id):
     """
     A view to show individual product details
     """
-
     product = get_object_or_404(Product, pk=product_id)
-    print('This is product:')
-    print(product)
-    print('This is Product:')
-    print(Product)
-    print('This is product_id:')
-    print(product_id)
 
     context = {
         'product': product,
@@ -91,7 +84,7 @@ def product_detail(request, product_id):
 def add_product(request):
     """ Add a product to the store """
     if not request.user.is_superuser:
-        message.error(request, 'Sorry, only store owners can do that.')
+        messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
 
     # POST handler:
@@ -147,12 +140,21 @@ def edit_product(request, product_id):
 def edit_product(request, product_id):
     """ Edit a product in the store """
     if not request.user.is_superuser:
-        message.error(request, 'Sorry, only store owners can do that.')
+        messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
 
     product = get_object_or_404(Product, pk=product_id)
-    form = ProductForm(instance=product)
-    messages.info(request, f'You are editing {product.name}')
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully updated product!')
+            return redirect(reverse('product_detail', args=[product.id]))
+        else:
+            messages.error(request, 'Failed to update product. Please ensure the form is valid.')
+    else:
+        form = ProductForm(instance=product)
+        messages.info(request, f'You are editing {product.name}')
 
     template = 'products/edit_product.html'
     context = {
